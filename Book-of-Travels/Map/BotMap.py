@@ -64,6 +64,9 @@ class Location():
         left = []
         spoiler = []
         url = []
+        images = []
+        noOnlys = "hidden" # default to hidden
+        noSpoilers = "hidden" # default to hidden
         for key in directions.keys():
             ### print("Processing direction:", key, "-", directions[key])
             destination = self.getDestination(key)
@@ -71,18 +74,24 @@ class Location():
             left.append(f'{directions[key][0] / 1265:.1%}')
             top.append(f'{directions[key][1] / 755:.1%}')
             spoilerText = ""
+            image = "exit"
+            address = '#' # stay where we are link!
             if destination is None:
-                url.append("#") # stay where we are link!
                 spoilerText = "spoiler" # and treat it as a spoiler
+                image = "only"
+                noOnlys = "spoiler" # mark as spoiler
+                # noOnlys = "" # don't hide as there are ...
             else:
                 if destination.spoiler:
                     spoilerText = "spoiler"
                 address = lookup.Name2Key(destination.location.name) # where we go to
-                url.append(address + '.html?Entry=' + destination.direction) # appended the direction
+                address += '.html'
+                if destination.direction != '':
+                    address += '?Entry=' + destination.direction # appended the direction
+            images.append(image)
+            url.append(address)
             spoiler.append(spoilerText)
-        spoilers = self.spoilers # notes about spoilers if any
-        noSpoilers = "hidden"
-        if len(spoilers) > 0:
+        if len(self.spoilers) > 0:
             noSpoilers = "" # don't hide as there are ...
         params = {
             'direction': direction,
@@ -90,11 +99,13 @@ class Location():
             'left': left,
             'url': url,
             'spoiler': spoiler,
-            'spoilers': spoilers,
+            'spoilers': self.spoilers, # notes about spoilers if any
             'noSpoilers': noSpoilers,
+            'noOnlys': noOnlys,
             'name': self.name,
             'mapName': lookup.Name2FileName(self.name),
-            'imageDir': lookup.imageDir
+            'imageDir': lookup.imageDir,
+            'image': images
             }
         html = template.generate(**params)
         '''

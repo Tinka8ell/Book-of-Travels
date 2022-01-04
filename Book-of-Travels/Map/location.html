@@ -39,7 +39,7 @@
         </tr>
       </table>
     </td>
-    <td class="bordered">
+    <td class="bordered entrance" id="Entrance">
       <table>
         <tr>
           <td class="centered">
@@ -53,13 +53,13 @@
         </tr>
       </table>
     </td>
-    <td class="# noSpoilers #">
+    <td class="#noSpoilers#">
       <p>
         <button onclick="hideElement()" class="spoiler">Hide Spoilers</button>
         <button onclick="unhideElement()" class="unspoiler">Has Spoilers</button>
       </p>
     </td>
-    <td class="bordered # noSpoilers #">
+    <td class="bordered #noSpoilers#">
       <div class="spoilerv">
         <p>
           Spoiler messages:
@@ -69,6 +69,20 @@
         </ul>
       </div>
     </td>
+    <td class="bordered #noOnlys#">
+      <table>
+        <tr>
+          <td class="centered">
+              Only an entry to this map:
+          </td>
+        </tr>
+        <tr>
+          <td class="centered">
+            <img src="#imageDir#only.png">
+          </td>
+        </tr>
+      </table>
+    </td>
   </tr>
 </table>
 
@@ -76,19 +90,17 @@
   <!-- now must replace this with generated code ... -->
   <img src="#imageDir##mapName#" style="width:100%;">
   <div id="Entry"><!-- Place holder for generate entry point.  here so comes under any exit point --></div>
-  # iterate exits direction url imageDir spoiler #
+  # iterate exits direction url imageDir spoiler image #
   <!-- here must add arrival location from GET? -->
   <script>
     const item = '?Entry=';
     const url = window.location.href;
     const pos = url.indexOf(item)
-    let text = "The search:<br>";
-    if (pos < 0){
-      text += "not found";
-    } else {
-      text = '<img src="#imageDir#entry.png" class="offset ' + url.slice(pos + item.length) + '">';
+    if (pos > 0){
+      const text = '<img src="#imageDir#entry.png" class="offset ' + url.slice(pos + item.length) + '">';
+      document.getElementById("Entry").innerHTML = text;
+	  document.getElementById("Entrance").style.display = "table-cell";
     }
-    document.getElementById("Entry").innerHTML = text;
   </script>
 </div>
 
