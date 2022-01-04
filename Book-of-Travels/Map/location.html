@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Standard fixed header bits -->
+<!-- No params for this one -->
+<html>
+<head>
+<!-- Create a web page for a location -->
+<!-- Uses lists for each exit containing:
+       direction key,
+       top distance as a %,
+       left distance as a %,
+       url for link to next map,
+       spoiler marker (either spoiler class tag, or blank)
+     name of the location,
+     mapName of the map image
+     imageDir where images are found
+-->
+# insert header #
+<style>
+/* here be the direction styles */
+# iterate directions direction top left #
+</style>
+<title>Location: #name#</title>
+</head>
+<body>
+<h2>Location: #name#</h2>
+<table>
+  <tr>
+    <td class="bordered">
+      <table>
+        <tr>
+          <td class="centered">
+              Exits from this map:
+          </td>
+        </tr>
+        <tr>
+          <td class="centered">
+            <img src="#imageDir#exit.png">
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td class="bordered">
+      <table>
+        <tr>
+          <td class="centered">
+              Entrance to this map:
+          </td>
+        </tr>
+        <tr>
+          <td class="centered">
+            <img src="#imageDir#entry.png">
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td class="# noSpoilers #">
+      <p>
+        <button onclick="hideElement()" class="spoiler">Hide Spoilers</button>
+        <button onclick="unhideElement()" class="unspoiler">Has Spoilers</button>
+      </p>
+    </td>
+    <td class="bordered # noSpoilers #">
+      <div class="spoilerv">
+        <p>
+          Spoiler messages:
+        </p>
+        <ul>
+          # iterate spoilers spoilers #
+        </ul>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<div class="container">
+  <!-- now must replace this with generated code ... -->
+  <img src="#imageDir##mapName#" style="width:100%;">
+  <div id="Entry"><!-- Place holder for generate entry point.  here so comes under any exit point --></div>
+  # iterate exits direction url imageDir spoiler #
+  <!-- here must add arrival location from GET? -->
+  <script>
+    const item = '?Entry=';
+    const url = window.location.href;
+    const pos = url.indexOf(item)
+    let text = "The search:<br>";
+    if (pos < 0){
+      text += "not found";
+    } else {
+      text = '<img src="#imageDir#entry.png" class="offset ' + url.slice(pos + item.length) + '">';
+    }
+    document.getElementById("Entry").innerHTML = text;
+  </script>
+</div>
+
+</body>
+</html>

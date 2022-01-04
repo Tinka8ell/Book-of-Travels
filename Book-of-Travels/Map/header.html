@@ -1,0 +1,82 @@
+<!-- Standard fixed header bits -->
+<!-- No params for this one -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+  width: 100%;
+  max-width: 1265px;
+}
+
+.offset {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.spoiler {
+  display: none;
+}
+
+.spoilerb {
+  display: none;
+}
+
+.spoilerv {
+  visibility: hidden;
+}
+
+.bordered {
+  border: solid black;
+  border: none;
+}
+
+.centered {
+  text-align: center;
+  vertical-align: center;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+<script>
+function setAllElementDisplay(className, attribute) {
+	  let elements = document.getElementsByClassName(className);
+	  for (element of elements){
+	    element.style.display = attribute;
+	  }
+	}
+
+function setAllElementVisibility(className, attribute) {
+	  let elements = document.getElementsByClassName(className);
+	  for (element of elements){
+	    element.style.visibility = attribute;
+	  }
+	}
+
+function hideElement() {
+  setAllElementDisplay("spoiler", "none");
+  setAllElementDisplay("unspoiler", "inline");
+
+  setAllElementDisplay("spoilerb", "none");
+  setAllElementDisplay("unspoilerb", "block");
+
+  setAllElementVisibility("spoilerv", "hidden");
+  setAllElementVisibility("unspoilerv", "visible");
+}
+
+function unhideElement() {
+  setAllElementDisplay("spoiler", "inline");
+  setAllElementDisplay("unspoiler", "none");
+
+  setAllElementDisplay("spoilerb", "block");
+  setAllElementDisplay("unspoilerb", "none");
+
+  setAllElementVisibility("spoilerv", "visible");
+  setAllElementVisibility("unspoilerv", "hidden");
+}
+
+</script>
